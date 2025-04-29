@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio - Website Creator</title>
+    <style>
+        /* General Styles */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5dc; /* Beige background */
+            color: #333;
+        }
+
+        /* Header Styles */
+        header {
+            background: linear-gradient(to right, #8b4513, #d2b48c); /* Gradient background */
+            color: #fff;
+            padding: 2rem 0;
+            text-align: center;
+            position: relative;
+        }
+        header img {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+        }
+        header h1 {
+            font-size: 2.5rem;
+            margin: 0.5rem 0;
+        }
+        header p {
+            font-size: 1.2rem;
+            margin: 0;
+        }
+
+        /* Navigation Styles */
+        nav {
+            display: flex;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.8); /* Transparent background */
+            border-bottom: 1px solid #d2b48c; /* Tan border */
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px); /* Blur effect */
+        }
+        nav button {
+            background: none;
+            border: none;
+            padding: 1rem;
+            cursor: pointer;
+            font-size: 1rem;
+            color: #333;
+            transition: color 0.3s ease, border-bottom 0.3s ease;
+        }
+        nav button:hover {
+            color: #8b4513; /* SaddleBrown hover color */
+        }
+        nav button.active {
+            color: #8b4513; /* SaddleBrown active color */
+            border-bottom: 2px solid #8b4513;
+        }
+
+        /* Section Styles */
+        section {
+            display: none;
+            padding: 4rem 2rem;
+            max-width: 800px;
+            margin: 2rem auto;
+            background: #fff; /* White background for sections */
+            border: 1px solid #d2b48c; /* Tan border */
+            border-radius: 12px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+        section.active {
+            display: block;
+        }
+
+        /* Portfolio Section */
+        #portfolio ul {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            padding: 0;
+        }
+        #portfolio ul li {
+            list-style: none;
+            background: #f9f9f9;
+            padding: 1rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+        #portfolio ul li:hover {
+            transform: translateY(-5px);
+        }
+        #portfolio ul li a {
+            color: #8b4513; /* SaddleBrown link color */
+            text-decoration: none;
+        }
+        #portfolio ul li a:hover {
+            text-decoration: underline;
+        }
+
+        /* Footer Styles */
+        footer {
+            text-align: center;
+            padding: 2rem 0;
+            background: #333;
+            color: #fff;
+        }
+        footer a {
+            color: #d2b48c;
+            text-decoration: none;
+            margin: 0 0.5rem;
+            font-size: 1.2rem;
+        }
+        footer a:hover {
+            color: #fff;
+        }
+
+        /* Chat Widget Styles */
+        #chat-widget {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 300px;
+            max-height: 400px;
+            background: #fff;
+            border: 1px solid #d2b48c;
+            border-radius: 12px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            display: none; /* Hidden by default */
+            flex-direction: column;
+            overflow: hidden;
+            z-index: 1000;
+        }
+        #chat-header {
+            background: #8b4513;
+            color: #fff;
+            padding: 10px;
+            text-align: center;
+            cursor: pointer;
+        }
+        #chat-messages {
+            flex: 1;
+            padding: 10px;
+            overflow-y: auto;
+            font-size: 0.9rem;
+        }
+        #chat-input {
+            display: flex;
+            border-top: 1px solid #d2b48c;
+        }
+        #chat-input input {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            outline: none;
+        }
+        #chat-input button {
+            background: #8b4513;
+            color: #fff;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+        }
+        #chat-toggle {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #8b4513;
+            color: #fff;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            z-index: 1001;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <img src="me.jpg" alt="Your Picture">
+        <h1>Welcome to My Portfolio</h1>
+        <p>Website Creator | Designer | Developer</p>
+    </header>
+    <nav>
+        <button class="tab-button active" data-tab="about">About</button>
+        <button class="tab-button" data-tab="portfolio">Portfolio</button>
+        <button class="tab-button" data-tab="webshop">Webshop</button>
+        <button class="tab-button" data-tab="contact">Contact</button>
+    </nav>
+    <section id="about" class="active">
+        <h2>About Me</h2>
+        <p>Hi, I'm Dave-Jeremy van Thijn, a passionate website creator focused on helping businesses, entrepreneurs, and creatives bring their ideas to life online.</p>
+        <p>I specialize in designing and building modern, user-friendly websites that not only look great but also drive results. Whether you need a simple landing page, a custom-built website, or a ready-to-launch template, I offer solutions tailored to fit your vision.</p>
+        <p>With a strong focus on clean design, speed, and functionality, I make sure every project I deliver is crafted to stand out and perform.</p>
+        <p>When you work with me, you get more than just a website — you get a partner dedicated to helping you grow your brand and reach your goals online.</p>
+        <p>Ready to bring your project to life? Let's build something amazing together.</p>
+    </section>
+    <section id="portfolio">
+        <h2>Portfolio</h2>
+        <ul>
+            <li><a href="https://example.com/project1" target="_blank">Project 1: Modern Business Website</a></li>
+            <li><a href="https://example.com/project2" target="_blank">Project 2: E-commerce Platform</a></li>
+            <li><a href="https://example.com/project3" target="_blank">Project 3: Creative Portfolio</a></li>
+            <li><a href="https://example.com/project4" target="_blank">Project 4: Landing Page Design</a></li>
+        </ul>
+    </section>
+    <section id="webshop">
+        <h2>Webshop</h2>
+        <p>Check out my webshop for ready-to-launch templates and custom-built websites.</p>
+        <p><a href="https://example.com/webshop" target="_blank">Visit My Webshop</a></p>
+        <p>Explore a variety of templates designed for different industries, all optimized for performance and user experience.</p> 
+        </section>
+    <section id="contact">
+        <h2>Contact</h2>
+        <button id="emailButton">Send me an Email</button>
+    </section>
+    <footer>
+        <p>&copy; 2025 Dave-Jeremy. All rights reserved.</p>
+        <a href="https://www.linkedin.com/in/dave-jeremy-van-thijn-31717a1a0" target="_blank">LinkedIn</a>
+        <a href="https://github.com" target="_blank">GitHub</a>
+    </footer>
+     <!-- Chat Widget -->
+     <div id="chat-widget">
+        <div id="chat-header">Chat with Me</div>
+        <div id="chat-messages"></div>
+        <div id="chat-input">
+            <input type="text" id="chat-message-input" placeholder="Type a message...">
+            <button id="chat-send-button">Send</button>
+        </div>
+    </div>
+    <button id="chat-toggle">💬</button>
+
+    <script>
+    // Chat Widget Functionality
+    const chatWidget = document.getElementById('chat-widget');
+    const chatToggle = document.getElementById('chat-toggle');
+    const chatHeader = document.getElementById('chat-header');
+    const chatMessages = document.getElementById('chat-messages');
+    const chatInput = document.getElementById('chat-message-input');
+    const chatSendButton = document.getElementById('chat-send-button');
+
+    // Toggle Chat Widget Visibility
+    chatToggle.addEventListener('click', () => {
+        if (chatWidget.style.display === 'flex') {
+            chatWidget.style.display = 'none';
+            chatToggle.style.display = 'flex'; // Show the bubble
+        } else {
+            chatWidget.style.display = 'flex';
+            chatToggle.style.display = 'none'; // Hide the bubble
+        }
+    });
+
+    // Minimize Chat Widget
+    chatHeader.addEventListener('click', () => {
+        chatWidget.style.display = 'none';
+        chatToggle.style.display = 'flex'; // Show the bubble
+    });
+
+    // Send Message
+    chatSendButton.addEventListener('click', () => {
+        const message = chatInput.value.trim();
+        if (message) {
+            const userMessage = document.createElement('div');
+            userMessage.textContent = `You: ${message}`;
+            userMessage.style.marginBottom = '10px';
+            chatMessages.appendChild(userMessage);
+            chatInput.value = '';
+
+// Simulate a response
+setTimeout(() => {
+    const botMessage = document.createElement('div');
+    if (message.toLowerCase().includes('portfolio')) {
+        botMessage.textContent = 'Bot: Check out my portfolio in the "Portfolio" tab!';
+    } else if (message.toLowerCase().includes('contact')) {
+        botMessage.textContent = 'Bot: You can contact me via the "Contact" tab or send me an email at djvanthijn@hotmail.com.';
+    } else if (message.toLowerCase().includes('thank you')) {
+        botMessage.textContent = 'Bot: You’re welcome! Let me know if there’s anything else I can help with.';
+    } else {
+        botMessage.textContent = 'Bot: I’m sorry, I didn’t quite understand that. Can you please rephrase?';
+    }
+    botMessage.style.color = '#8b4513';
+    chatMessages.appendChild(botMessage);
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+}, 1000);
+        }
+    });
+
+    // Send Message on Enter Key
+    chatInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+            chatSendButton.click();
+        }
+    });
+</script>
+    <script>
+        const buttons = document.querySelectorAll('.tab-button');
+        const sections = document.querySelectorAll('section');
+
+        buttons.forEach(button => {
+            button.addEventListener('click', () => {
+                // Remove active class from all buttons and sections
+                buttons.forEach(btn => btn.classList.remove('active'));
+                sections.forEach(section => section.classList.remove('active'));
+
+                // Add active class to the clicked button and corresponding section
+                button.classList.add('active');
+                document.getElementById(button.dataset.tab).classList.add('active');
+            });
+        });
+
+        const emailButton = document.getElementById('emailButton');
+        emailButton.addEventListener('click', () => {
+            window.location.href = 'mailto:djvanthijn@hotmail.com';
+        });
+    </script>
+</body>
+</html>
